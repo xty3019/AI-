@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PSSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Access">
+          <Key>
+            <PropertyRef Name="AccessID" />
+          </Key>
+          <Property Name="AccessID" Type="char" MaxLength="14" Nullable="false" />
+          <Property Name="AccessType" Type="char" MaxLength="4" />
+          <Property Name="AccessDate" Type="datetime" />
+          <Property Name="AccessMoeny" Type="money" />
+          <Property Name="AccessRemark" Type="varchar" MaxLength="100" />
+          <Property Name="AccessState" Type="char" MaxLength="4" />
+          <Property Name="BankID" Type="int" />
+          <Property Name="UsersID" Type="int" />
+          <Property Name="Eid" Type="int" />
+        </EntityType>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankName" Type="varchar" MaxLength="20" />
+          <Property Name="OpenAccount" Type="varchar" MaxLength="20" />
+          <Property Name="OpenBank" Type="varchar" MaxLength="20" />
+          <Property Name="Account" Type="varchar" MaxLength="50" />
+          <Property Name="BankMoney" Type="money" />
+          <Property Name="IsStop" Type="bit" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Eid" />
+          </Key>
+          <Property Name="Eid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EName" Type="varchar" MaxLength="50" />
+          <Property Name="ESex" Type="char" MaxLength="2" />
+          <Property Name="EBorn" Type="datetime" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="ETel" Type="varchar" MaxLength="20" />
+          <Property Name="EAddress" Type="varchar" MaxLength="200" />
+          <Property Name="EQQ" Type="varchar" MaxLength="20" />
+          <Property Name="EWay" Type="varchar" MaxLength="20" />
+          <Property Name="Eqcyf" Type="int" />
+          <Property Name="Eqcyfl" Type="float" />
+          <Property Name="ERemark" Type="varchar" MaxLength="250" />
+          <Property Name="EmId" Type="int" />
+        </EntityType>
+        <EntityType Name="Income">
+          <Key>
+            <PropertyRef Name="IncomeID" />
+          </Key>
+          <Property Name="IncomeID" Type="char" MaxLength="14" Nullable="false" />
+          <Property Name="IncomeName" Type="varchar" MaxLength="50" />
+          <Property Name="IncomeDate" Type="datetime" />
+          <Property Name="IncomeMoney" Type="money" />
+          <Property Name="IncomeRemark" Type="varchar" MaxLength="100" />
+          <Property Name="IncomeType" Type="char" MaxLength="4" />
+          <Property Name="BankID" Type="int" />
+          <Property Name="UsersID" Type="int" />
+          <Property Name="Employee" Type="int" />
+        </EntityType>
+        <EntityType Name="Pay">
+          <Key>
+            <PropertyRef Name="PayID" />
+          </Key>
+          <Property Name="PayID" Type="char" MaxLength="14" Nullable="false" />
+          <Property Name="PayName" Type="varchar" MaxLength="50" />
+          <Property Name="PayDate" Type="datetime" />
+          <Property Name="PayMoney" Type="money" />
+          <Property Name="PayRemark" Type="varchar" MaxLength="100" />
+          <Property Name="PayType" Type="char" MaxLength="4" />
+          <Property Name="BankID" Type="int" />
+          <Property Name="UsersID" Type="int" />
+          <Property Name="Employee" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UsersID" />
+          </Key>
+          <Property Name="UsersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsersName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserLoginName" Type="varchar" MaxLength="20" />
+          <Property Name="UserLoginPwd" Type="char" MaxLength="20" />
+        </EntityType>
+        <EntityContainer Name="PSSModelStoreContainer">
+          <EntitySet Name="Access" EntityType="Self.Access" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Income" EntityType="Self.Income" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pay" EntityType="Self.Pay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PSSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyEF" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bank" EntityType="PSSModel.Bank" />
+          <EntitySet Name="Employee" EntityType="PSSModel.Employee" />
+          <EntitySet Name="Income" EntityType="PSSModel.Income" />
+          <EntitySet Name="Users" EntityType="PSSModel.Users" />
+          <EntitySet Name="Pay" EntityType="PSSModel.Pay" />
+          <EntitySet Name="Access" EntityType="PSSModel.Access" />
+        </EntityContainer>
+        <EntityType Name="Bank">
+          <Key>
+            <PropertyRef Name="BankID" />
+          </Key>
+          <Property Name="BankID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BankName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OpenAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OpenBank" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsStop" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Eid" />
+          </Key>
+          <Property Name="Eid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESex" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="EBorn" Type="DateTime" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ETel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EQQ" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EWay" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Eqcyf" Type="Int32" />
+          <Property Name="Eqcyfl" Type="Double" />
+          <Property Name="ERemark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="EmId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Income">
+          <Key>
+            <PropertyRef Name="IncomeID" />
+          </Key>
+          <Property Name="IncomeID" Type="String" Nullable="false" MaxLength="14" FixedLength="true" Unicode="false" />
+          <Property Name="IncomeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IncomeDate" Type="DateTime" Precision="3" />
+          <Property Name="IncomeMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IncomeRemark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IncomeType" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="BankID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" />
+          <Property Name="Employee" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UsersID" />
+          </Key>
+          <Property Name="UsersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsersName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserLoginName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserLoginPwd" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Pay">
+          <Key>
+            <PropertyRef Name="PayID" />
+          </Key>
+          <Property Name="PayID" Type="String" Nullable="false" MaxLength="14" FixedLength="true" Unicode="false" />
+          <Property Name="PayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PayDate" Type="DateTime" Precision="3" />
+          <Property Name="PayMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PayRemark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PayType" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="BankID" Type="Int32" />
+          <Property Name="UsersID" Type="Int32" />
+          <Property Name="Employee" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Access">
+          <Key>
+            <PropertyRef Name="AccessID" />
+          </Key>
+          <Property Name="AccessID" Type="String" Nullable="false" MaxLength="14" FixedLength="true" Unicode="false" />
+          <Property Name="AccessType" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="AccessDate" Type="DateTime" Precision="3" />
+          <Property Name="AccessMoeny" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AccessRemark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AccessState" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="UsersID" Type="Int32" />
+          <Property Name="Eid" Type="Int32" />
+          <Property Name="BankID" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PSSModelStoreContainer" CdmEntityContainer="MyEF">
+          <EntitySetMapping Name="Bank">
+            <EntityTypeMapping TypeName="PSSModel.Bank">
+              <MappingFragment StoreEntitySet="Bank">
+                <ScalarProperty Name="IsStop" ColumnName="IsStop" />
+                <ScalarProperty Name="BankMoney" ColumnName="BankMoney" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="OpenBank" ColumnName="OpenBank" />
+                <ScalarProperty Name="OpenAccount" ColumnName="OpenAccount" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="PSSModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmId" ColumnName="EmId" />
+                <ScalarProperty Name="ERemark" ColumnName="ERemark" />
+                <ScalarProperty Name="Eqcyfl" ColumnName="Eqcyfl" />
+                <ScalarProperty Name="Eqcyf" ColumnName="Eqcyf" />
+                <ScalarProperty Name="EWay" ColumnName="EWay" />
+                <ScalarProperty Name="EQQ" ColumnName="EQQ" />
+                <ScalarProperty Name="EAddress" ColumnName="EAddress" />
+                <ScalarProperty Name="ETel" ColumnName="ETel" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EBorn" ColumnName="EBorn" />
+                <ScalarProperty Name="ESex" ColumnName="ESex" />
+                <ScalarProperty Name="EName" ColumnName="EName" />
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Income">
+            <EntityTypeMapping TypeName="PSSModel.Income">
+              <MappingFragment StoreEntitySet="Income">
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="IncomeType" ColumnName="IncomeType" />
+                <ScalarProperty Name="IncomeRemark" ColumnName="IncomeRemark" />
+                <ScalarProperty Name="IncomeMoney" ColumnName="IncomeMoney" />
+                <ScalarProperty Name="IncomeDate" ColumnName="IncomeDate" />
+                <ScalarProperty Name="IncomeName" ColumnName="IncomeName" />
+                <ScalarProperty Name="IncomeID" ColumnName="IncomeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PSSModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserLoginPwd" ColumnName="UserLoginPwd" />
+                <ScalarProperty Name="UserLoginName" ColumnName="UserLoginName" />
+                <ScalarProperty Name="UsersName" ColumnName="UsersName" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pay">
+            <EntityTypeMapping TypeName="PSSModel.Pay">
+              <MappingFragment StoreEntitySet="Pay">
+                <ScalarProperty Name="Employee" ColumnName="Employee" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="PayType" ColumnName="PayType" />
+                <ScalarProperty Name="PayRemark" ColumnName="PayRemark" />
+                <ScalarProperty Name="PayMoney" ColumnName="PayMoney" />
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="PayName" ColumnName="PayName" />
+                <ScalarProperty Name="PayID" ColumnName="PayID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Access">
+            <EntityTypeMapping TypeName="PSSModel.Access">
+              <MappingFragment StoreEntitySet="Access">
+                <ScalarProperty Name="BankID" ColumnName="BankID" />
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+                <ScalarProperty Name="UsersID" ColumnName="UsersID" />
+                <ScalarProperty Name="AccessState" ColumnName="AccessState" />
+                <ScalarProperty Name="AccessRemark" ColumnName="AccessRemark" />
+                <ScalarProperty Name="AccessMoeny" ColumnName="AccessMoeny" />
+                <ScalarProperty Name="AccessDate" ColumnName="AccessDate" />
+                <ScalarProperty Name="AccessType" ColumnName="AccessType" />
+                <ScalarProperty Name="AccessID" ColumnName="AccessID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

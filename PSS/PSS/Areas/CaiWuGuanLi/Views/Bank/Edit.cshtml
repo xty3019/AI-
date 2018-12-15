@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_PSS_Jquery_LayoutPage.cshtml";
+}
+<script src="~/Scripts/jquery-1.4.1.js"></script>
+<link href="~/css/main.css" rel="stylesheet" />
+<link href="~/css/general.css" rel="stylesheet" />
+
+<script>
+    //接受参数方法
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(r[2]);
+        return null;
+    }
+
+    $(function () {
+        GetData();
+    })
+
+    function GetData() {
+        var id = GetQueryString("bid");
+        $.ajax({
+            type: "post",
+            url: "/Bank/GetBankData",
+            data: { id: id },
+            datatype: "json",
+            success: function (data) {
+                $('#txtname').val(data.BankName);
+                $('#txtopenname').val(data.OpenAccount);
+                $('#txtopenbank').val(data.OpenBank);
+                $('#txtaccount').val(data.Account);
+                $('#txtmoney').val(data.BankMoney);
+                //var rad = $('input:radio[name="stop"]:checked').val(data.IsStop)
+                var rad = data.IsStop;
+                
+                if (rad == true) {
+                    $('#radno').attr("checked", "checked");
+                   
+                }
+                else
+                {
+                    $('#radyes').attr("checked", "checked");
+                }
+            }
+        })
+    }
+
+
+    layui.use('form', function () {
+        var form = layui.form;
+        form.render();
+
+       
+       
+    });
+
+    $("#btnUpdate").live("click", function () {
+        Edit();
+    })
+
+    function Edit() {
+        var id = GetQueryString("bid");
+        var name = $("#txtname").val();
+        var openname = $("#txtopenname").val();
+        var openbank = $("#txtopenbank").val();
+        var account = $("#txtaccount").val();
+        var money = $("#txtmoney").val();
+        var stop = $('input:radio[name="stop"]:checked').val();
+        if (stop == null) {
+
+            return;
+        } else {
+            stop;
+        }
+        var json = { BankName: name, OpenAccount: openname, OpenBank: openbank, Account: account, BankMoney: money, IsStop: stop,BankID:id };
+        var jsonmodel = { newbank: json };
+        $.ajax({
+            type: "post",
+            url: "/Bank/Update",
+            data: jsonmodel,
+            datatype: "json",
+            success: function (data) {
+                if (datas > 0) {
+                    layer.alert('更新成功', { title: '特别提示：', icon: 1 }, function () {
+                        close();
+                    })
+
+                } else {
+                    alert("网络繁忙，请稍后")
+                }
+            }
+        })
+    }
+
+
+
+    function close() {
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
+</script>
+<body>
+    <div id="top">
+        <table cellpadding="0" cellspacing="0" style="width: 100%;">
+            <tr>
+                <td>
+                    <div id="t_left">
+                        <span class="sp1 sp2">银行账户</span>
+                    </div>
+                </td>
+                <td style="width: 224px;">
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="content">
+        <h1>
+            <span class="action-span"></span> <span class="action-span1">
+                <a href="main.htm">银行账户-管理中心</a>
+            </span><span id="search_id" class="action-span1">
+                -
+                添加银行账户
+            </span>
+            <div style="clear: both">
+            </div>
+        </h1>
+        <!-- start goods form -->
+        <div class="tab-div">
+            <!-- tab bar -->
+            <div id="tabbar-div">
+                <p>
+                    <span class="tab-front" id="general-tab">通用信息</span><span></span>
+                </p>
+            </div>
+            <!-- tab body -->
+            <div id="tabbody-div">
+                    <!-- 通用信息 -->
+                    <table width="90%" class="layui-form" id="general-table" align="center" style="border-collapse:separate; border-spacing:0px 15px;">
+                        <tr>
+                            <td class="label">
+                                账户名：
+                            </td>
+                            <td>
+                                <input type="text" id="txtname" name="title" required lay-verify="required" placeholder="请输入账户名" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                开户名：
+                            </td>
+                            <td>
+                                <input type="text" id="txtopenname" name="title" required lay-verify="required" placeholder="请输入开户名" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                开户银行：
+                            </td>
+                            <td>
+                                <input type="text" id="txtopenbank" name="title" required lay-verify="required" placeholder="请输入开户银行" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                银行账号：
+                            </td>
+                            <td>
+                                <input type="text" id="txtaccount" name="title" required lay-verify="required" placeholder="请输入银行账号" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                余额：
+                            </td>
+                            <td>
+                                <input type="text" id="txtmoney" name="title" required lay-verify="required" placeholder="请输入余额" autocomplete="off" class="layui-input">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label">
+                                是否停用：
+                            </td>
+                            <td>
+                                <input type="radio" id="radyes" name="stop" value="false" title="是">
+                                <input type="radio" id="radno" name="stop" value="true" title="否">
+                            </td>
+                        </tr>
+
+                    </table>
+                    <div class="layui-form-item" style="margin-left:200px;">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" id="btnUpdate">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+
+
+</div>
+        </div>
+        <!-- end goods form -->
+    </div>
+</body>
+</html>

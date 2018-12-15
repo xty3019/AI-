@@ -1,0 +1,646 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PSSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CheckDepot">
+    <Key>
+      <PropertyRef Name="CDID" />
+    </Key>
+    <Property Name="CDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="CDDate" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="CDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="CDState" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CheckDepotDetail">
+    <Key>
+      <PropertyRef Name="CDDID" />
+    </Key>
+    <Property Name="CDDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CDDAmount1" Type="Int32" />
+    <Property Name="DevAmount2" Type="Int32" />
+    <Property Name="CDDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Compose">
+    <Key>
+      <PropertyRef Name="ComposeID" />
+    </Key>
+    <Property Name="ComposeID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="ComposeDate" Type="DateTime" Precision="3" />
+    <Property Name="ComposeDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ComposeState" Type="Int32" />
+    <Property Name="ComposeAmount" Type="Int32" />
+    <Property Name="ComposePrice" Type="Decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="ComposeDetail">
+    <Key>
+      <PropertyRef Name="CDID" />
+    </Key>
+    <Property Name="CDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ComposeID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CDAmount" Type="Int32" />
+    <Property Name="CDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="CDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="CustomerLevel">
+    <Key>
+      <PropertyRef Name="CLID" />
+    </Key>
+    <Property Name="CLID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CLName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CLAgio" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CustomerOrder">
+    <Key>
+      <PropertyRef Name="COID" />
+    </Key>
+    <Property Name="COID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CusID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="CODate" Type="DateTime" Precision="3" />
+    <Property Name="CORefDate" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="COState" Type="Int32" />
+    <Property Name="CODesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="CustomerOrderDetail">
+    <Key>
+      <PropertyRef Name="CODID" />
+    </Key>
+    <Property Name="CODID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CODAmount" Type="Int32" />
+    <Property Name="CODPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="CODDiscont" Type="Int32" />
+    <Property Name="CODDisPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="CODSale" Type="Int32" />
+    <Property Name="CODDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="CusID" />
+    </Key>
+    <Property Name="CusID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CLID" Type="Int32" />
+    <Property Name="CusName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CusCompany" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CusMan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CusDesc" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Depots">
+    <Key>
+      <PropertyRef Name="DepotID" />
+    </Key>
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DepotMan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DepotTel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DepotAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DepotDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DepotStock">
+    <Key>
+      <PropertyRef Name="DSID" />
+    </Key>
+    <Property Name="DSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DSAmount" Type="Int32" />
+    <Property Name="DSPrice" Type="Decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="DevolveDetail">
+    <Key>
+      <PropertyRef Name="DevDID" />
+    </Key>
+    <Property Name="DevDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DevID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DevDAmount" Type="Int32" />
+    <Property Name="DevDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Devolves">
+    <Key>
+      <PropertyRef Name="DevID" />
+    </Key>
+    <Property Name="DevID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DevOutID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="DevInID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="DevDate" Type="DateTime" Precision="3" />
+    <Property Name="DevDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="DevState" Type="Int32" />
+  </EntityType>
+  <EntityType Name="InOutDepot">
+    <Key>
+      <PropertyRef Name="IODID" />
+    </Key>
+    <Property Name="IODID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="IODType" Type="Int32" />
+    <Property Name="IODNum" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IODDate" Type="DateTime" Precision="3" />
+    <Property Name="IODUser" Type="Int32" />
+    <Property Name="IODDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="InOutDepotDetail">
+    <Key>
+      <PropertyRef Name="IODDID" />
+    </Key>
+    <Property Name="IODDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IODID" Type="Int32" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IODDAmount" Type="Int32" />
+    <Property Name="IODDPrice" Type="Decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="LostDetail">
+    <Key>
+      <PropertyRef Name="LDID" />
+    </Key>
+    <Property Name="LDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LostID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LDAmount" Type="Int32" />
+    <Property Name="LDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="LDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Losts">
+    <Key>
+      <PropertyRef Name="LostID" />
+    </Key>
+    <Property Name="LostID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="LostDate" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="LostDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="LostState" Type="Int32" />
+  </EntityType>
+  <EntityType Name="OtherInDepot">
+    <Key>
+      <PropertyRef Name="OIDID" />
+    </Key>
+    <Property Name="OIDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="OIDDate" Type="DateTime" Precision="3" />
+    <Property Name="OIDUser" Type="Int32" />
+    <Property Name="OIDState" Type="Int32" />
+    <Property Name="OIDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="OtherInDepotDetail">
+    <Key>
+      <PropertyRef Name="OIDDID" />
+    </Key>
+    <Property Name="OIDDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OIDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="OIDDAmount" Type="Int32" />
+    <Property Name="OIDDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="OIDDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="OtherOutDepot">
+    <Key>
+      <PropertyRef Name="OODID" />
+    </Key>
+    <Property Name="OODID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="OODDate" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="OODState" Type="Int32" />
+    <Property Name="OODDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="OtherOutDepotDetail">
+    <Key>
+      <PropertyRef Name="OODDID" />
+    </Key>
+    <Property Name="OODDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OODID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OODDAmount" Type="Int32" />
+    <Property Name="OODDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="OODDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PayOffDetail">
+    <Key>
+      <PropertyRef Name="PODID" />
+    </Key>
+    <Property Name="PODID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="POID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PODAmount" Type="Int32" />
+    <Property Name="PODPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="PODDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PayOffs">
+    <Key>
+      <PropertyRef Name="POID" />
+    </Key>
+    <Property Name="POID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="PODate" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="PODesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="POState" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PopedomRole">
+    <Key>
+      <PropertyRef Name="PRID" />
+    </Key>
+    <Property Name="PRID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="PopID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Popedoms">
+    <Key>
+      <PropertyRef Name="PopID" />
+    </Key>
+    <Property Name="PopID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PopName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PopParentID" Type="Int32" />
+    <Property Name="PopIsMenu" Type="Boolean" />
+    <Property Name="PopValue" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="PopDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProduceInDepot">
+    <Key>
+      <PropertyRef Name="PIDID" />
+    </Key>
+    <Property Name="PIDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="PIDDate" Type="DateTime" Precision="3" />
+    <Property Name="PIDUser" Type="Int32" />
+    <Property Name="PIDState" Type="Int32" />
+    <Property Name="PDIDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProduceInDepotDeteil">
+    <Key>
+      <PropertyRef Name="PIDDID" />
+    </Key>
+    <Property Name="PIDDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PIDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="PIDDAmount" Type="Int32" />
+    <Property Name="PIDDPrice" Type="Decimal" Precision="14" Scale="0" />
+    <Property Name="PIDDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProduceOutDepot">
+    <Key>
+      <PropertyRef Name="PODID" />
+    </Key>
+    <Property Name="PODID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="PODDate" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="PODState" Type="Int32" />
+    <Property Name="PODDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProduceOutDepotDetail">
+    <Key>
+      <PropertyRef Name="PODDID" />
+    </Key>
+    <Property Name="PODDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PODID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PODDAmount" Type="Int32" />
+    <Property Name="PODDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="PODDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProductColor">
+    <Key>
+      <PropertyRef Name="PCID" />
+    </Key>
+    <Property Name="PCID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PCName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProductLend">
+    <Key>
+      <PropertyRef Name="PPID" />
+    </Key>
+    <Property Name="PPID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="PPName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PPCompany" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PPMan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PPTel" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PPAddress" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="PPFax" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="PPEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PPUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PPBank" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PPGoods" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PPDesc" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProID" />
+    </Key>
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PTID" Type="Int32" />
+    <Property Name="PUID" Type="Int32" />
+    <Property Name="PCID" Type="Int32" />
+    <Property Name="PSID" Type="Int32" />
+    <Property Name="ProName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ProJP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ProTM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ProWorkShop" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ProMax" Type="Int32" />
+    <Property Name="ProMin" Type="Int32" />
+    <Property Name="ProInPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ProPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="ProDesc" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="DepotID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ProductSpec">
+    <Key>
+      <PropertyRef Name="PSID" />
+    </Key>
+    <Property Name="PSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PSName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProductTypes">
+    <Key>
+      <PropertyRef Name="PTID" />
+    </Key>
+    <Property Name="PTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PTParentID" Type="Int32" />
+    <Property Name="PTName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PTDes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ProductUnit">
+    <Key>
+      <PropertyRef Name="PUID" />
+    </Key>
+    <Property Name="PUID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PUName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PTParent">
+    <Key>
+      <PropertyRef Name="PTParentID" />
+    </Key>
+    <Property Name="PTParentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PTPName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="QuotePrice">
+    <Key>
+      <PropertyRef Name="QPID" />
+    </Key>
+    <Property Name="QPID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CusID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="QPDate" Type="DateTime" Precision="3" />
+    <Property Name="QPState" Type="Int32" />
+    <Property Name="QPDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="QuotePriceDetail">
+    <Key>
+      <PropertyRef Name="QPDID" />
+    </Key>
+    <Property Name="QPDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="QPID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="QPDAmount" Type="Int32" />
+    <Property Name="QPDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="QPDDiscont" Type="Int32" />
+    <Property Name="QPDDisPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="QPDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="RoleDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SaleDepot">
+    <Key>
+      <PropertyRef Name="SDID" />
+    </Key>
+    <Property Name="SDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CusID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="SDDate" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="SDState" Type="Int32" />
+    <Property Name="SDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SaleDepotDetail">
+    <Key>
+      <PropertyRef Name="SDDID" />
+    </Key>
+    <Property Name="SDDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SDDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SDDDiscount" Type="Int32" />
+    <Property Name="SDDDisPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SDDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="SDDAmount" Type="Int32" />
+  </EntityType>
+  <EntityType Name="SaleReturn">
+    <Key>
+      <PropertyRef Name="SRID" />
+    </Key>
+    <Property Name="SRID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CusID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="SRDate" Type="DateTime" Precision="3" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="SRState" Type="Int32" />
+    <Property Name="SRDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SaleReturnDetail">
+    <Key>
+      <PropertyRef Name="SRDID" />
+    </Key>
+    <Property Name="SRDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SRID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="Int32" />
+    <Property Name="SRDAmount" Type="Int32" />
+    <Property Name="SRDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SRDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SplitDetail">
+    <Key>
+      <PropertyRef Name="SDID" />
+    </Key>
+    <Property Name="SDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SplitID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SDAmount" Type="Int32" />
+    <Property Name="SDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Splits">
+    <Key>
+      <PropertyRef Name="SplitID" />
+    </Key>
+    <Property Name="SplitID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="SplitDate" Type="DateTime" Precision="3" />
+    <Property Name="SplitDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="SplitState" Type="Int32" />
+    <Property Name="SplitAmount" Type="Int32" />
+    <Property Name="SplitPrice" Type="Decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="StockDetail">
+    <Key>
+      <PropertyRef Name="SDetailID" />
+    </Key>
+    <Property Name="SDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StockID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="SDetailAmount" Type="Int32" />
+    <Property Name="SDetailPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SDetailDepAmount" Type="Int32" />
+    <Property Name="SDetailDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="StockInDepot">
+    <Key>
+      <PropertyRef Name="SIDID" />
+    </Key>
+    <Property Name="SIDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="PPID" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+    <Property Name="StockID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="SIDDate" Type="DateTime" Precision="3" />
+    <Property Name="SIDDeliver" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SIDFreight" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SIDUser" Type="Int32" />
+    <Property Name="SIDData" Type="Int32" />
+    <Property Name="SIDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="StockInDepotDetail">
+    <Key>
+      <PropertyRef Name="SIDDID" />
+    </Key>
+    <Property Name="SIDDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SIDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="SIDDAmount" Type="Int32" />
+    <Property Name="SIDDPrice" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="SIDDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="StockOutDepot">
+    <Key>
+      <PropertyRef Name="SRDID" />
+    </Key>
+    <Property Name="SRDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="PPID" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="StockID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="DepotID" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="SRDDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SIDUser" Type="Int32" Nullable="false" />
+    <Property Name="SIDData" Type="Int32" Nullable="false" />
+    <Property Name="SIDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StockOutDepotDetail">
+    <Key>
+      <PropertyRef Name="SRDDID" />
+    </Key>
+    <Property Name="SRDDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProID" Type="Int32" Nullable="false" />
+    <Property Name="SRDID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="SIDDAmount" Type="Int32" Nullable="false" />
+    <Property Name="SIDDPrice" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="SIDDDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stocks">
+    <Key>
+      <PropertyRef Name="StockID" />
+    </Key>
+    <Property Name="StockID" Type="String" MaxLength="14" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="PPID" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
+    <Property Name="StockDate" Type="DateTime" Precision="3" />
+    <Property Name="StockInDate" Type="DateTime" Precision="3" />
+    <Property Name="StockUser" Type="Int32" />
+    <Property Name="StockState" Type="Int32" />
+    <Property Name="StockDesc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UsersID" />
+    </Key>
+    <Property Name="UsersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsersName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserLoginName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserLoginPwd" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="UsersRole">
+    <Key>
+      <PropertyRef Name="URID" />
+    </Key>
+    <Property Name="URID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsersID" Type="Int32" />
+    <Property Name="RoleID" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="PSSEntityFramework" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CheckDepot" EntityType="Self.CheckDepot" />
+    <EntitySet Name="CheckDepotDetail" EntityType="Self.CheckDepotDetail" />
+    <EntitySet Name="Compose" EntityType="Self.Compose" />
+    <EntitySet Name="ComposeDetail" EntityType="Self.ComposeDetail" />
+    <EntitySet Name="CustomerLevel" EntityType="Self.CustomerLevel" />
+    <EntitySet Name="CustomerOrder" EntityType="Self.CustomerOrder" />
+    <EntitySet Name="CustomerOrderDetail" EntityType="Self.CustomerOrderDetail" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" />
+    <EntitySet Name="Depots" EntityType="Self.Depots" />
+    <EntitySet Name="DepotStock" EntityType="Self.DepotStock" />
+    <EntitySet Name="DevolveDetail" EntityType="Self.DevolveDetail" />
+    <EntitySet Name="Devolves" EntityType="Self.Devolves" />
+    <EntitySet Name="InOutDepot" EntityType="Self.InOutDepot" />
+    <EntitySet Name="InOutDepotDetail" EntityType="Self.InOutDepotDetail" />
+    <EntitySet Name="LostDetail" EntityType="Self.LostDetail" />
+    <EntitySet Name="Losts" EntityType="Self.Losts" />
+    <EntitySet Name="OtherInDepot" EntityType="Self.OtherInDepot" />
+    <EntitySet Name="OtherInDepotDetail" EntityType="Self.OtherInDepotDetail" />
+    <EntitySet Name="OtherOutDepot" EntityType="Self.OtherOutDepot" />
+    <EntitySet Name="OtherOutDepotDetail" EntityType="Self.OtherOutDepotDetail" />
+    <EntitySet Name="PayOffDetail" EntityType="Self.PayOffDetail" />
+    <EntitySet Name="PayOffs" EntityType="Self.PayOffs" />
+    <EntitySet Name="PopedomRole" EntityType="Self.PopedomRole" />
+    <EntitySet Name="Popedoms" EntityType="Self.Popedoms" />
+    <EntitySet Name="ProduceInDepot" EntityType="Self.ProduceInDepot" />
+    <EntitySet Name="ProduceInDepotDeteil" EntityType="Self.ProduceInDepotDeteil" />
+    <EntitySet Name="ProduceOutDepot" EntityType="Self.ProduceOutDepot" />
+    <EntitySet Name="ProduceOutDepotDetail" EntityType="Self.ProduceOutDepotDetail" />
+    <EntitySet Name="ProductColor" EntityType="Self.ProductColor" />
+    <EntitySet Name="ProductLend" EntityType="Self.ProductLend" />
+    <EntitySet Name="Products" EntityType="Self.Products" />
+    <EntitySet Name="ProductSpec" EntityType="Self.ProductSpec" />
+    <EntitySet Name="ProductTypes" EntityType="Self.ProductTypes" />
+    <EntitySet Name="ProductUnit" EntityType="Self.ProductUnit" />
+    <EntitySet Name="PTParent" EntityType="Self.PTParent" />
+    <EntitySet Name="QuotePrice" EntityType="Self.QuotePrice" />
+    <EntitySet Name="QuotePriceDetail" EntityType="Self.QuotePriceDetail" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" />
+    <EntitySet Name="SaleDepot" EntityType="Self.SaleDepot" />
+    <EntitySet Name="SaleDepotDetail" EntityType="Self.SaleDepotDetail" />
+    <EntitySet Name="SaleReturn" EntityType="Self.SaleReturn" />
+    <EntitySet Name="SaleReturnDetail" EntityType="Self.SaleReturnDetail" />
+    <EntitySet Name="SplitDetail" EntityType="Self.SplitDetail" />
+    <EntitySet Name="Splits" EntityType="Self.Splits" />
+    <EntitySet Name="StockDetail" EntityType="Self.StockDetail" />
+    <EntitySet Name="StockInDepot" EntityType="Self.StockInDepot" />
+    <EntitySet Name="StockInDepotDetail" EntityType="Self.StockInDepotDetail" />
+    <EntitySet Name="StockOutDepot" EntityType="Self.StockOutDepot" />
+    <EntitySet Name="StockOutDepotDetail" EntityType="Self.StockOutDepotDetail" />
+    <EntitySet Name="Stocks" EntityType="Self.Stocks" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="UsersRole" EntityType="Self.UsersRole" />
+  </EntityContainer>
+</Schema>

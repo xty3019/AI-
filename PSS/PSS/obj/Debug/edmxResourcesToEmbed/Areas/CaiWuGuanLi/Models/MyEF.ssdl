@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PSSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Access">
+    <Key>
+      <PropertyRef Name="AccessID" />
+    </Key>
+    <Property Name="AccessID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="AccessType" Type="char" MaxLength="4" />
+    <Property Name="AccessDate" Type="datetime" />
+    <Property Name="AccessMoeny" Type="money" />
+    <Property Name="AccessRemark" Type="varchar" MaxLength="100" />
+    <Property Name="AccessState" Type="char" MaxLength="4" />
+    <Property Name="BankID" Type="int" />
+    <Property Name="UsersID" Type="int" />
+    <Property Name="Eid" Type="int" />
+  </EntityType>
+  <EntityType Name="Bank">
+    <Key>
+      <PropertyRef Name="BankID" />
+    </Key>
+    <Property Name="BankID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BankName" Type="varchar" MaxLength="20" />
+    <Property Name="OpenAccount" Type="varchar" MaxLength="20" />
+    <Property Name="OpenBank" Type="varchar" MaxLength="20" />
+    <Property Name="Account" Type="varchar" MaxLength="50" />
+    <Property Name="BankMoney" Type="money" />
+    <Property Name="IsStop" Type="bit" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Eid" />
+    </Key>
+    <Property Name="Eid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EName" Type="varchar" MaxLength="50" />
+    <Property Name="ESex" Type="char" MaxLength="2" />
+    <Property Name="EBorn" Type="datetime" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="ETel" Type="varchar" MaxLength="20" />
+    <Property Name="EAddress" Type="varchar" MaxLength="200" />
+    <Property Name="EQQ" Type="varchar" MaxLength="20" />
+    <Property Name="EWay" Type="varchar" MaxLength="20" />
+    <Property Name="Eqcyf" Type="int" />
+    <Property Name="Eqcyfl" Type="float" />
+    <Property Name="ERemark" Type="varchar" MaxLength="250" />
+    <Property Name="EmId" Type="int" />
+  </EntityType>
+  <EntityType Name="Income">
+    <Key>
+      <PropertyRef Name="IncomeID" />
+    </Key>
+    <Property Name="IncomeID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="IncomeName" Type="varchar" MaxLength="50" />
+    <Property Name="IncomeDate" Type="datetime" />
+    <Property Name="IncomeMoney" Type="money" />
+    <Property Name="IncomeRemark" Type="varchar" MaxLength="100" />
+    <Property Name="IncomeType" Type="char" MaxLength="4" />
+    <Property Name="BankID" Type="int" />
+    <Property Name="UsersID" Type="int" />
+    <Property Name="Employee" Type="int" />
+  </EntityType>
+  <EntityType Name="Pay">
+    <Key>
+      <PropertyRef Name="PayID" />
+    </Key>
+    <Property Name="PayID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="PayName" Type="varchar" MaxLength="50" />
+    <Property Name="PayDate" Type="datetime" />
+    <Property Name="PayMoney" Type="money" />
+    <Property Name="PayRemark" Type="varchar" MaxLength="100" />
+    <Property Name="PayType" Type="char" MaxLength="4" />
+    <Property Name="BankID" Type="int" />
+    <Property Name="UsersID" Type="int" />
+    <Property Name="Employee" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UsersID" />
+    </Key>
+    <Property Name="UsersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsersName" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserLoginName" Type="varchar" MaxLength="20" />
+    <Property Name="UserLoginPwd" Type="char" MaxLength="20" />
+  </EntityType>
+  <EntityContainer Name="PSSModelStoreContainer">
+    <EntitySet Name="Access" EntityType="Self.Access" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bank" EntityType="Self.Bank" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Income" EntityType="Self.Income" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pay" EntityType="Self.Pay" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

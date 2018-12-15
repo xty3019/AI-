@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PSSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MyEF" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bank" EntityType="PSSModel.Bank" />
+    <EntitySet Name="Employee" EntityType="PSSModel.Employee" />
+    <EntitySet Name="Income" EntityType="PSSModel.Income" />
+    <EntitySet Name="Users" EntityType="PSSModel.Users" />
+    <EntitySet Name="Pay" EntityType="PSSModel.Pay" />
+    <EntitySet Name="Access" EntityType="PSSModel.Access" />
+  </EntityContainer>
+  <EntityType Name="Bank">
+    <Key>
+      <PropertyRef Name="BankID" />
+    </Key>
+    <Property Name="BankID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BankName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="OpenAccount" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="OpenBank" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BankMoney" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IsStop" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Eid" />
+    </Key>
+    <Property Name="Eid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ESex" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="EBorn" Type="DateTime" Precision="3" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ETel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="EQQ" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="EWay" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Eqcyf" Type="Int32" />
+    <Property Name="Eqcyfl" Type="Double" />
+    <Property Name="ERemark" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="EmId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Income">
+    <Key>
+      <PropertyRef Name="IncomeID" />
+    </Key>
+    <Property Name="IncomeID" Type="String" Nullable="false" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="IncomeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IncomeDate" Type="DateTime" Precision="3" />
+    <Property Name="IncomeMoney" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IncomeRemark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IncomeType" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="BankID" Type="Int32" />
+    <Property Name="UsersID" Type="Int32" />
+    <Property Name="Employee" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UsersID" />
+    </Key>
+    <Property Name="UsersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsersName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserLoginName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="UserLoginPwd" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Pay">
+    <Key>
+      <PropertyRef Name="PayID" />
+    </Key>
+    <Property Name="PayID" Type="String" Nullable="false" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="PayName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PayDate" Type="DateTime" Precision="3" />
+    <Property Name="PayMoney" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PayRemark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PayType" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="BankID" Type="Int32" />
+    <Property Name="UsersID" Type="Int32" />
+    <Property Name="Employee" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Access">
+    <Key>
+      <PropertyRef Name="AccessID" />
+    </Key>
+    <Property Name="AccessID" Type="String" Nullable="false" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="AccessType" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="AccessDate" Type="DateTime" Precision="3" />
+    <Property Name="AccessMoeny" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="AccessRemark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AccessState" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+    <Property Name="UsersID" Type="Int32" />
+    <Property Name="Eid" Type="Int32" />
+    <Property Name="BankID" Type="Int32" />
+  </EntityType>
+</Schema>

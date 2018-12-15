@@ -1,0 +1,646 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PSSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CheckDepot">
+    <Key>
+      <PropertyRef Name="CDID" />
+    </Key>
+    <Property Name="CDID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="CDDate" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="CDDesc" Type="nvarchar" MaxLength="1000" />
+    <Property Name="CDState" Type="int" />
+  </EntityType>
+  <EntityType Name="CheckDepotDetail">
+    <Key>
+      <PropertyRef Name="CDDID" />
+    </Key>
+    <Property Name="CDDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CDID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="CDDAmount1" Type="int" />
+    <Property Name="DevAmount2" Type="int" />
+    <Property Name="CDDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Compose">
+    <Key>
+      <PropertyRef Name="ComposeID" />
+    </Key>
+    <Property Name="ComposeID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="ComposeDate" Type="datetime" />
+    <Property Name="ComposeDesc" Type="nvarchar" MaxLength="1000" />
+    <Property Name="ComposeState" Type="int" />
+    <Property Name="ComposeAmount" Type="int" />
+    <Property Name="ComposePrice" Type="numeric" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="ComposeDetail">
+    <Key>
+      <PropertyRef Name="CDID" />
+    </Key>
+    <Property Name="CDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ComposeID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="CDAmount" Type="int" />
+    <Property Name="CDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="CDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="CustomerLevel">
+    <Key>
+      <PropertyRef Name="CLID" />
+    </Key>
+    <Property Name="CLID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CLName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CLAgio" Type="int" />
+  </EntityType>
+  <EntityType Name="CustomerOrder">
+    <Key>
+      <PropertyRef Name="COID" />
+    </Key>
+    <Property Name="COID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="CusID" Type="char" MaxLength="14" />
+    <Property Name="CODate" Type="datetime" />
+    <Property Name="CORefDate" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="COState" Type="int" />
+    <Property Name="CODesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="CustomerOrderDetail">
+    <Key>
+      <PropertyRef Name="CODID" />
+    </Key>
+    <Property Name="CODID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="CODAmount" Type="int" />
+    <Property Name="CODPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="CODDiscont" Type="int" />
+    <Property Name="CODDisPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="CODSale" Type="int" />
+    <Property Name="CODDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="CusID" />
+    </Key>
+    <Property Name="CusID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="CLID" Type="int" />
+    <Property Name="CusName" Type="nvarchar" MaxLength="100" />
+    <Property Name="CusCompany" Type="nvarchar" MaxLength="200" />
+    <Property Name="CusMan" Type="nvarchar" MaxLength="50" />
+    <Property Name="CusDesc" Type="nvarchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="Depots">
+    <Key>
+      <PropertyRef Name="DepotID" />
+    </Key>
+    <Property Name="DepotID" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="DepotName" Type="nvarchar" MaxLength="100" />
+    <Property Name="DepotMan" Type="nvarchar" MaxLength="100" />
+    <Property Name="DepotTel" Type="nvarchar" MaxLength="100" />
+    <Property Name="DepotAddress" Type="nvarchar" MaxLength="200" />
+    <Property Name="DepotDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="DepotStock">
+    <Key>
+      <PropertyRef Name="DSID" />
+    </Key>
+    <Property Name="DSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="DSAmount" Type="int" />
+    <Property Name="DSPrice" Type="numeric" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="DevolveDetail">
+    <Key>
+      <PropertyRef Name="DevDID" />
+    </Key>
+    <Property Name="DevDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DevID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="DevDAmount" Type="int" />
+    <Property Name="DevDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Devolves">
+    <Key>
+      <PropertyRef Name="DevID" />
+    </Key>
+    <Property Name="DevID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DevOutID" Type="char" MaxLength="6" />
+    <Property Name="DevInID" Type="char" MaxLength="6" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="DevDate" Type="datetime" />
+    <Property Name="DevDesc" Type="nvarchar" MaxLength="1000" />
+    <Property Name="DevState" Type="int" />
+  </EntityType>
+  <EntityType Name="InOutDepot">
+    <Key>
+      <PropertyRef Name="IODID" />
+    </Key>
+    <Property Name="IODID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="IODType" Type="int" />
+    <Property Name="IODNum" Type="varchar" MaxLength="100" />
+    <Property Name="IODDate" Type="datetime" />
+    <Property Name="IODUser" Type="int" />
+    <Property Name="IODDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="InOutDepotDetail">
+    <Key>
+      <PropertyRef Name="IODDID" />
+    </Key>
+    <Property Name="IODDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IODID" Type="int" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="IODDAmount" Type="int" />
+    <Property Name="IODDPrice" Type="numeric" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="LostDetail">
+    <Key>
+      <PropertyRef Name="LDID" />
+    </Key>
+    <Property Name="LDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LostID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="LDAmount" Type="int" />
+    <Property Name="LDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="LDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Losts">
+    <Key>
+      <PropertyRef Name="LostID" />
+    </Key>
+    <Property Name="LostID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="LostDate" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="LostDesc" Type="nvarchar" MaxLength="1000" />
+    <Property Name="LostState" Type="int" />
+  </EntityType>
+  <EntityType Name="OtherInDepot">
+    <Key>
+      <PropertyRef Name="OIDID" />
+    </Key>
+    <Property Name="OIDID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="OIDDate" Type="datetime" />
+    <Property Name="OIDUser" Type="int" />
+    <Property Name="OIDState" Type="int" />
+    <Property Name="OIDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="OtherInDepotDetail">
+    <Key>
+      <PropertyRef Name="OIDDID" />
+    </Key>
+    <Property Name="OIDDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="OIDID" Type="char" MaxLength="14" />
+    <Property Name="OIDDAmount" Type="int" />
+    <Property Name="OIDDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="OIDDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="OtherOutDepot">
+    <Key>
+      <PropertyRef Name="OODID" />
+    </Key>
+    <Property Name="OODID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="OODDate" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="OODState" Type="int" />
+    <Property Name="OODDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="OtherOutDepotDetail">
+    <Key>
+      <PropertyRef Name="OODDID" />
+    </Key>
+    <Property Name="OODDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OODID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="OODDAmount" Type="int" />
+    <Property Name="OODDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="OODDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="PayOffDetail">
+    <Key>
+      <PropertyRef Name="PODID" />
+    </Key>
+    <Property Name="PODID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="POID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="PODAmount" Type="int" />
+    <Property Name="PODPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="PODDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="PayOffs">
+    <Key>
+      <PropertyRef Name="POID" />
+    </Key>
+    <Property Name="POID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="PODate" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="PODesc" Type="nvarchar" MaxLength="1000" />
+    <Property Name="POState" Type="int" />
+  </EntityType>
+  <EntityType Name="PopedomRole">
+    <Key>
+      <PropertyRef Name="PRID" />
+    </Key>
+    <Property Name="PRID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="PopID" Type="int" />
+  </EntityType>
+  <EntityType Name="Popedoms">
+    <Key>
+      <PropertyRef Name="PopID" />
+    </Key>
+    <Property Name="PopID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PopName" Type="nvarchar" MaxLength="100" />
+    <Property Name="PopParentID" Type="int" />
+    <Property Name="PopIsMenu" Type="bit" />
+    <Property Name="PopValue" Type="varchar" MaxLength="200" />
+    <Property Name="PopDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="ProduceInDepot">
+    <Key>
+      <PropertyRef Name="PIDID" />
+    </Key>
+    <Property Name="PIDID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="PIDDate" Type="datetime" />
+    <Property Name="PIDUser" Type="int" />
+    <Property Name="PIDState" Type="int" />
+    <Property Name="PDIDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="ProduceInDepotDeteil">
+    <Key>
+      <PropertyRef Name="PIDDID" />
+    </Key>
+    <Property Name="PIDDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="PIDID" Type="char" MaxLength="14" />
+    <Property Name="PIDDAmount" Type="int" />
+    <Property Name="PIDDPrice" Type="numeric" Precision="14" Scale="0" />
+    <Property Name="PIDDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="ProduceOutDepot">
+    <Key>
+      <PropertyRef Name="PODID" />
+    </Key>
+    <Property Name="PODID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="PODDate" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="PODState" Type="int" />
+    <Property Name="PODDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="ProduceOutDepotDetail">
+    <Key>
+      <PropertyRef Name="PODDID" />
+    </Key>
+    <Property Name="PODDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PODID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="PODDAmount" Type="int" />
+    <Property Name="PODDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="PODDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="ProductColor">
+    <Key>
+      <PropertyRef Name="PCID" />
+    </Key>
+    <Property Name="PCID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PCName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ProductLend">
+    <Key>
+      <PropertyRef Name="PPID" />
+    </Key>
+    <Property Name="PPID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="PPName" Type="nvarchar" MaxLength="100" />
+    <Property Name="PPCompany" Type="nvarchar" MaxLength="200" />
+    <Property Name="PPMan" Type="nvarchar" MaxLength="50" />
+    <Property Name="PPTel" Type="nvarchar" MaxLength="100" />
+    <Property Name="PPAddress" Type="nvarchar" MaxLength="300" />
+    <Property Name="PPFax" Type="nvarchar" MaxLength="100" />
+    <Property Name="PPEmail" Type="varchar" MaxLength="100" />
+    <Property Name="PPUrl" Type="varchar" MaxLength="100" />
+    <Property Name="PPBank" Type="nvarchar" MaxLength="200" />
+    <Property Name="PPGoods" Type="varchar" MaxLength="100" />
+    <Property Name="PPDesc" Type="nvarchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProID" />
+    </Key>
+    <Property Name="ProID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PTID" Type="int" />
+    <Property Name="PUID" Type="int" />
+    <Property Name="PCID" Type="int" />
+    <Property Name="PSID" Type="int" />
+    <Property Name="ProName" Type="nvarchar" MaxLength="100" />
+    <Property Name="ProJP" Type="varchar" MaxLength="100" />
+    <Property Name="ProTM" Type="varchar" MaxLength="100" />
+    <Property Name="ProWorkShop" Type="varchar" MaxLength="200" />
+    <Property Name="ProMax" Type="int" />
+    <Property Name="ProMin" Type="int" />
+    <Property Name="ProInPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="ProPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="ProDesc" Type="nvarchar" MaxLength="2000" />
+    <Property Name="DepotID" Type="char" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ProductSpec">
+    <Key>
+      <PropertyRef Name="PSID" />
+    </Key>
+    <Property Name="PSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PSName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ProductTypes">
+    <Key>
+      <PropertyRef Name="PTID" />
+    </Key>
+    <Property Name="PTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PTParentID" Type="int" />
+    <Property Name="PTName" Type="varchar" MaxLength="50" />
+    <Property Name="PTDes" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ProductUnit">
+    <Key>
+      <PropertyRef Name="PUID" />
+    </Key>
+    <Property Name="PUID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PUName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PTParent">
+    <Key>
+      <PropertyRef Name="PTParentID" />
+    </Key>
+    <Property Name="PTParentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PTPName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="QuotePrice">
+    <Key>
+      <PropertyRef Name="QPID" />
+    </Key>
+    <Property Name="QPID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="CusID" Type="char" MaxLength="14" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="QPDate" Type="datetime" />
+    <Property Name="QPState" Type="int" />
+    <Property Name="QPDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="QuotePriceDetail">
+    <Key>
+      <PropertyRef Name="QPDID" />
+    </Key>
+    <Property Name="QPDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="QPID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="QPDAmount" Type="int" />
+    <Property Name="QPDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="QPDDiscont" Type="int" />
+    <Property Name="QPDDisPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="QPDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="100" />
+    <Property Name="RoleDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="SaleDepot">
+    <Key>
+      <PropertyRef Name="SDID" />
+    </Key>
+    <Property Name="SDID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="CusID" Type="char" MaxLength="14" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="SDDate" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="SDState" Type="int" />
+    <Property Name="SDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="SaleDepotDetail">
+    <Key>
+      <PropertyRef Name="SDDID" />
+    </Key>
+    <Property Name="SDDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SDID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="SDDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="SDDDiscount" Type="int" />
+    <Property Name="SDDDisPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="SDDDesc" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SDDAmount" Type="int" />
+  </EntityType>
+  <EntityType Name="SaleReturn">
+    <Key>
+      <PropertyRef Name="SRID" />
+    </Key>
+    <Property Name="SRID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="CusID" Type="char" MaxLength="14" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="SRDate" Type="datetime" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="SRState" Type="int" />
+    <Property Name="SRDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="SaleReturnDetail">
+    <Key>
+      <PropertyRef Name="SRDID" />
+    </Key>
+    <Property Name="SRDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SRID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="int" />
+    <Property Name="SRDAmount" Type="int" />
+    <Property Name="SRDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="SRDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="SplitDetail">
+    <Key>
+      <PropertyRef Name="SDID" />
+    </Key>
+    <Property Name="SDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SplitID" Type="char" MaxLength="14" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="SDAmount" Type="int" />
+    <Property Name="SDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="SDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="Splits">
+    <Key>
+      <PropertyRef Name="SplitID" />
+    </Key>
+    <Property Name="SplitID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="SplitDate" Type="datetime" />
+    <Property Name="SplitDesc" Type="nvarchar" MaxLength="1000" />
+    <Property Name="SplitState" Type="int" />
+    <Property Name="SplitAmount" Type="int" />
+    <Property Name="SplitPrice" Type="numeric" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="StockDetail">
+    <Key>
+      <PropertyRef Name="SDetailID" />
+    </Key>
+    <Property Name="SDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="StockID" Type="char" MaxLength="14" />
+    <Property Name="SDetailAmount" Type="int" />
+    <Property Name="SDetailPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="SDetailDepAmount" Type="int" />
+    <Property Name="SDetailDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="StockInDepot">
+    <Key>
+      <PropertyRef Name="SIDID" />
+    </Key>
+    <Property Name="SIDID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="PPID" Type="char" MaxLength="12" />
+    <Property Name="DepotID" Type="char" MaxLength="6" />
+    <Property Name="StockID" Type="char" MaxLength="14" />
+    <Property Name="SIDDate" Type="datetime" />
+    <Property Name="SIDDeliver" Type="varchar" MaxLength="100" />
+    <Property Name="SIDFreight" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="SIDUser" Type="int" />
+    <Property Name="SIDData" Type="int" />
+    <Property Name="SIDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="StockInDepotDetail">
+    <Key>
+      <PropertyRef Name="SIDDID" />
+    </Key>
+    <Property Name="SIDDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProID" Type="varchar" MaxLength="50" />
+    <Property Name="SIDID" Type="char" MaxLength="14" />
+    <Property Name="SIDDAmount" Type="int" />
+    <Property Name="SIDDPrice" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="SIDDDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="StockOutDepot">
+    <Key>
+      <PropertyRef Name="SRDID" />
+    </Key>
+    <Property Name="SRDID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="PPID" Type="char" MaxLength="12" Nullable="false" />
+    <Property Name="StockID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="DepotID" Type="char" MaxLength="6" Nullable="false" />
+    <Property Name="SRDDate" Type="datetime" Nullable="false" />
+    <Property Name="SIDUser" Type="int" Nullable="false" />
+    <Property Name="SIDData" Type="int" Nullable="false" />
+    <Property Name="SIDDesc" Type="nvarchar" MaxLength="1000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StockOutDepotDetail">
+    <Key>
+      <PropertyRef Name="SRDDID" />
+    </Key>
+    <Property Name="SRDDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProID" Type="int" Nullable="false" />
+    <Property Name="SRDID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="SIDDAmount" Type="int" Nullable="false" />
+    <Property Name="SIDDPrice" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="SIDDDesc" Type="nvarchar" MaxLength="1000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Stocks">
+    <Key>
+      <PropertyRef Name="StockID" />
+    </Key>
+    <Property Name="StockID" Type="char" MaxLength="14" Nullable="false" />
+    <Property Name="PPID" Type="char" MaxLength="12" />
+    <Property Name="StockDate" Type="datetime" />
+    <Property Name="StockInDate" Type="datetime" />
+    <Property Name="StockUser" Type="int" />
+    <Property Name="StockState" Type="int" />
+    <Property Name="StockDesc" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UsersID" />
+    </Key>
+    <Property Name="UsersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsersName" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserLoginName" Type="varchar" MaxLength="20" />
+    <Property Name="UserLoginPwd" Type="char" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="UsersRole">
+    <Key>
+      <PropertyRef Name="URID" />
+    </Key>
+    <Property Name="URID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsersID" Type="int" />
+    <Property Name="RoleID" Type="int" />
+  </EntityType>
+  <EntityContainer Name="PSSModelStoreContainer">
+    <EntitySet Name="CheckDepot" EntityType="Self.CheckDepot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CheckDepotDetail" EntityType="Self.CheckDepotDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Compose" EntityType="Self.Compose" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ComposeDetail" EntityType="Self.ComposeDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerLevel" EntityType="Self.CustomerLevel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerOrder" EntityType="Self.CustomerOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerOrderDetail" EntityType="Self.CustomerOrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Depots" EntityType="Self.Depots" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DepotStock" EntityType="Self.DepotStock" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DevolveDetail" EntityType="Self.DevolveDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Devolves" EntityType="Self.Devolves" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InOutDepot" EntityType="Self.InOutDepot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InOutDepotDetail" EntityType="Self.InOutDepotDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LostDetail" EntityType="Self.LostDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Losts" EntityType="Self.Losts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OtherInDepot" EntityType="Self.OtherInDepot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OtherInDepotDetail" EntityType="Self.OtherInDepotDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OtherOutDepot" EntityType="Self.OtherOutDepot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OtherOutDepotDetail" EntityType="Self.OtherOutDepotDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PayOffDetail" EntityType="Self.PayOffDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PayOffs" EntityType="Self.PayOffs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PopedomRole" EntityType="Self.PopedomRole" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Popedoms" EntityType="Self.Popedoms" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProduceInDepot" EntityType="Self.ProduceInDepot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProduceInDepotDeteil" EntityType="Self.ProduceInDepotDeteil" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProduceOutDepot" EntityType="Self.ProduceOutDepot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProduceOutDepotDetail" EntityType="Self.ProduceOutDepotDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductColor" EntityType="Self.ProductColor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductLend" EntityType="Self.ProductLend" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductSpec" EntityType="Self.ProductSpec" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductTypes" EntityType="Self.ProductTypes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductUnit" EntityType="Self.ProductUnit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PTParent" EntityType="Self.PTParent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuotePrice" EntityType="Self.QuotePrice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="QuotePriceDetail" EntityType="Self.QuotePriceDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaleDepot" EntityType="Self.SaleDepot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaleDepotDetail" EntityType="Self.SaleDepotDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaleReturn" EntityType="Self.SaleReturn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SaleReturnDetail" EntityType="Self.SaleReturnDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SplitDetail" EntityType="Self.SplitDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Splits" EntityType="Self.Splits" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockDetail" EntityType="Self.StockDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockInDepot" EntityType="Self.StockInDepot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockInDepotDetail" EntityType="Self.StockInDepotDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockOutDepot" EntityType="Self.StockOutDepot" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockOutDepotDetail" EntityType="Self.StockOutDepotDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stocks" EntityType="Self.Stocks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsersRole" EntityType="Self.UsersRole" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

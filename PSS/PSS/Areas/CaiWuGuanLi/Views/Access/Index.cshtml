@@ -1,0 +1,271 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PSS_Jquery_LayoutPage.cshtml";
+}
+
+<link href="~/css/main.css" rel="stylesheet" />
+<link href="~/css/general.css" rel="stylesheet" />
+<script src="~/layui/layui.js"></script>
+<link href="~/layui/css/layui.css" rel="stylesheet" />
+<style type="text/css">
+    #content td {
+        text-align: center;
+    }
+
+    #content th {
+        font-weight: bold;
+    }
+
+    .sp1 {
+        font-size: 12px;
+        font-weight: bold;
+        color: #2958b4;
+    }
+
+    .sp2 {
+        line-height: 31px;
+        padding-left: 15px;
+    }
+
+    #content {
+        margin: 0 20px;
+    }
+
+
+</style>
+
+
+<script>
+    function close() {
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+
+    //时间转换方法
+    function ChangeDateFormat(cellval) {
+        var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+        var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+        var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+        return date.getFullYear() + "-" + month + "-" + currentDate;
+    }
+
+
+
+
+    layui.use(['table', 'form', 'laydate'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#seldate' //指定元素
+        });
+        laydate.render({
+            elem: '#dateend' //指定元素
+        });
+
+        table.render({
+            elem: '#demo'
+          , url: '/Access/BindData' //数据接口
+          , id: 'testReload'
+          , cols: [[ //表头
+              { field: 'AccessID', title: '单据编号', width: '10%', align: 'center' }
+            , {
+                field: 'AccessDate', title: '日期', width: '10%', align: 'center', templet: function (row) {
+                    return ChangeDateFormat(row.AccessDate)
+                }
+            }
+            , { field: 'BankName', title: '账户名称', width: '15%', align: 'center', }
+            , { field: 'BankID', title: '账户编号', width: '10%', align: 'center', hide: true }
+            , { field: 'AccessType', title: '类型', width: '5%',align: 'center', }
+            , { field: 'AccessMoeny', title: '金额', width: '10%', sort: true, align: 'center' }
+            , { field: 'AccessRemark', title: '备注', width: '15%', align: 'center' }
+            , { field: 'UsersName', title: '制单人', width: '5%', align: 'center', }
+            , { field: 'UsersName', title: '审核人', width: '5%', align: 'center', }
+            , { field: 'EName', title: '经手人', width: '5%', align: 'center', }
+            , {
+                field: 'AccessState', title: '状态', width: '5%', align: 'center',
+                templet: function (row) {
+                    if (row.AccessState == true) {
+                        row.AccessState = '否';
+                    }
+                    if (row.AccessState == false) {
+                        row.AccessState = '是';
+                    }
+                    return row.AccessState;
+                }
+            }
+           ,  {
+               fieeld: '', title: '操作', width: '15%', align: 'center', event: 'tool', templet: function (row) {
+                   var str = "";
+                   if (row.IncomeType == "未审") {
+                       str = '<button class="layui-btn layui-btn-normal  layui-btn-sm" lay-event="type">审核</button>' +
+                        '<button class="layui-btn layui-btn-normal  layui-btn-sm" lay-event="edit">编辑</button>' +
+                         '<button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>'
+                   } else {
+                       str = '<button class="layui-btn layui-btn-sm layui-btn-danger"" lay-event="type">反审</button>' +
+                        '<button class="layui-btn layui-btn-normal  layui-btn-sm" lay-event="edit">编辑</button>' +
+                         '<button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>'
+                   }
+                   return str;
+               }
+           },
+
+          ]]
+        , page: {
+            theme: '#FFB800',
+            layout: ['count', 'prev', 'page', 'next', 'limit', 'refresh', 'skip'],
+        }
+        , height: 400
+        , limit: 5
+        , limits: [5, 10, 15, 20]
+        });
+
+        //table.on('tool(test)', function (obj) {
+        //    var data = obj.data;
+        //    if (obj.event === 'del') {
+        //        layer.alert('您确定删除这条数据吗？', {
+        //            skin: 'layui-layer-molv' //样式类名 自定义样式
+        //          , closeBtn: 1 // 是否显示关闭按钮
+        //          , anim: 1 //动画类型
+        //          , btn: ['确定', '取消'] //按钮
+        //          , icon: 6 // icon
+        //          , yes: function () {
+        //              $.ajax({
+        //                  type: "post",
+        //                  url: "/Bank/Delete",
+        //                  data: { 'id': data.BankID },
+        //                  datatype: "json",
+        //                  success: function (data) {
+        //                      var datas = JSON.parse(data)
+        //                      if (datas > 0) {
+        //                          layer.alert('删除成功', { icon: 6, shade: 0.1 })
+        //                          obj.del();
+        //                          layer.close(index);
+        //                      } else {
+        //                          layer.close(index);
+        //                          layer.msg('删除失败', { icon: 2, title: '提示' });
+        //                          return;
+        //                      }
+        //                  },
+        //                  error: function () {
+        //                  }
+        //              })
+        //          }
+        //        })
+        //    }
+
+
+        //    else if (obj.event === 'edit') {
+        //        layer.open({
+        //            type: 2,
+        //            title: "",
+        //            area: ['50%', '85%'],
+        //            content: ['Edit?bid=' + data.BankID, 'on'],
+        //            shade: 0.5,
+        //            resize: false,
+        //            anim: 2,
+        //            move: false,
+        //            scrollbr: false,
+        //            end: function () {
+        //                location.reload();
+
+        //            }
+        //        })
+        //    }
+        //})
+
+    })
+
+
+    $("#btnSelect").live("click", function () {
+        var name = $("#selname").val();
+        var date = $("#seldate").val();
+        var dateend = $("#dateend").val();
+        var type = $("#istype").val();
+        layui.use('table', function () {
+            var table = layui.table;
+            table.reload('testReload', {
+                url: "/Income/BindData",
+                page: 1,
+                where: {
+                    name: name,
+                    type: type,
+                    date: date,
+                    dateend: dateend
+                }
+            })
+        })
+    })
+</script>
+<body>
+
+    <div id="top">
+        <table cellpadding="0" cellspacing="0" style="width: 100%;">
+            <tr>
+                <td>
+                    <div id="t_left">
+                        <span class="sp1 sp2" style="font-size:medium">现金银行</span>
+                    </div>
+                </td>
+                <td style="width: 224px;">
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="height:30px"></div>
+    <a class="layui-icon layui-icon-add-1" style="font-size:20px;margin-left:20px;" onclick="AddBtn()">添加新账户</a>
+    <div id="content">
+        <!-- 商品搜索 -->
+        <!-- 商品搜索 -->
+        <div class="form-div">
+
+            <table class="layui-form" action="">
+                <tr>
+                    <td>
+                        收入名称：
+                    </td>
+                    <td style="padding-left:20px;">
+                        <input type="text" id="selname" name="title" required lay-verify="required" placeholder="请输入标题"  style="width:150px;"  autocomplete="off" class="layui-input">
+                    </td>
+                    <td style="padding-left:50px">
+                        日期：
+                    </td>
+                    <td style="padding-left:20px">
+                        <input type="text" id="seldate" name="title" required lay-verify="date" placeholder="请选择时间" style="width:150px;" autocomplete="off" class="layui-input">
+                    </td>
+
+                    <td style="padding-left:20px">
+                        --
+                    </td>
+                    <td style="padding-left:20px">
+                        <input type="text" id="dateend" name="title" required lay-verify="date" placeholder="请选择时间" style="width:150px;" autocomplete="off" class="layui-input">
+                    </td>
+                    <td style="padding-left:50px">
+                        审核状态：
+                    </td>
+                    <td style="padding-left:20px;">
+                                <select id="istype" lay-verify=""  class="layui-select">
+                                    <option value="">请选择</option>
+                                    <option value="未审">未审</option>
+                                    <option value="已审">已审</option>
+                                </select>
+                    </td>
+
+                    <td style="padding-left:50px">
+                        <input type="button" value="查询" id="btnSelect" class="layui-btn layui-btn-normal " />
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+
+
+        <table id="demo" lay-filter="test"></table>
+
+    </div>
+</body>
+

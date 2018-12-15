@@ -1,0 +1,253 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_PSS_Jquery_LayoutPage.cshtml";
+}
+<link href="~/css/main.css" rel="stylesheet" />
+<link href="~/css/general.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.4.1.js"></script>
+
+<style type="text/css">
+    #top {
+        background: url(../img/sub_top_bg.jpg) repeat-x;
+        height: 31px;
+        margin-bottom: 20px;
+    }
+
+    #t_left {
+        background: url(../img/sub_top_left.jpg) left top no-repeat;
+        height: 31px;
+    }
+
+    .sp1 {
+        font-size: 12px;
+        font-weight: bold;
+        color: #2958b4;
+    }
+
+    .sp2 {
+        line-height: 31px;
+        padding-left: 15px;
+    }
+
+    #content {
+        margin: 0 20px;
+    }
+</style>
+
+
+<script>
+
+    var payid;
+    $(function () {
+        GetID();
+        Emptype();
+        BankType();
+        $('select').addClass('layui-select');
+
+    })
+
+    layui.use(['table', 'form'], function () {
+        var table = layui.table;
+        var form = layui.form;
+
+        //form.on('submit(formDemo)', function () {
+        //    Add();
+        //});
+    })
+
+    function GetID() {
+        $.ajax({
+            type: "post",
+            url: "/Pay/GetMaxDHtoday",
+            data: null,
+            datatype: "json",
+            success: function (data) {
+                payid = data;
+            }
+        })
+        return payid;
+    }
+
+    function Emptype() {
+        $.ajax({
+            type: "post",
+            url: "/Pay/Emptype",
+            data: null,
+            datatype: "json",
+            success: function (data) {
+                $("#emp").prepend("<option value='0'>请选择</option>");
+                for (var i = 0; i < data.length; i++) {
+                    $("#emp").append("<option value='" + data[i].Eid + "'>" + data[i].EName + "</option>");
+                }
+            }
+        })
+    }
+
+    function BankType() {
+        $.ajax({
+            type: "post",
+            url: "/Pay/BankType",
+            data: null,
+            datatype: "json",
+            success: function (data) {
+                $("#txtbank").prepend("<option value='0'>请选择</option>");
+                for (var i = 0; i < data.length; i++) {
+                    $("#txtbank").append("<option value='" + data[i].BankID + "'>" + data[i].BankName + "</option>");
+                }
+            }
+        })
+    }
+
+    function Add() {
+        var name = $("#name").val();
+        var bank = $("#txtbank").val();
+        var money = $("#money").val();
+        var usersid = $("#usertype").val();
+        var emp = $("#emp").val();
+        var remark = $("#remark").val();
+        var type = $("#type").val();
+        var date = new Date(); //创建时间对象  
+        var year = date.getFullYear(); //获取年   
+        var month = date.getMonth() + 1;//获取月
+        var day = date.getDate(); //获取当日  
+        var time = year + "-" + month + "-" + day; //组合时间 
+        var json = { PayName: name, BankID: bank, PayMoney: money, Employee: emp, PayRemark: remark, PayDate: time, PayType: type, PayID: payid, UsersID: usersid };
+        var jsonmodel = { newpay: json }
+        $.ajax({
+            type: "post",
+            url: "/Pay/AddPay",
+            data: jsonmodel,
+            datatype: "json",
+            success: function (data) {
+                if (data == "1") {
+                    alert("添加成功！", { icon: 1, time: 2000, shade: 0.1 })
+                    close();
+                } else {
+                    alert("网络繁忙！", { icon: 1, time: 2000, shade: 0.1 });
+                }
+            }
+        })
+    }
+
+    $("#btnAdd").live("click", function () {
+        Add();
+    })
+
+    //关闭弹出层
+    function close() {
+        var index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    }
+</script>
+<body>
+    <div id="top">
+        <table cellpadding="0" cellspacing="0" style="width: 100%;">
+            <tr>
+                <td>
+                    <div id="t_left">
+                        <span class="sp1 sp2">收入信息</span>
+                    </div>
+                </td>
+                <td style="width: 224px;">
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="content">
+        <h1>
+            <span class="action-span"></span> <span class="action-span1">
+                <a href="main.htm">收入-管理中心</a>
+            </span><span id="search_id" class="action-span1">
+
+                添加收入信息
+            </span>
+            <div style="clear: both">
+            </div>
+        </h1>
+        <!-- start goods form -->
+        <div class="tab-div">
+            <!-- tab bar -->
+            <div id="tabbar-div">
+                <p>
+                    <span class="tab-front" id="general-tab">通用信息</span><span></span>
+                </p>
+            </div>
+            <!-- tab body -->
+            <div id="tabbody-div">
+                <form class="layui-form" action="">
+                    <!-- 通用信息 -->
+                    <table class="layui-table" border="0" style="border-style:solid">
+
+                        <tr>
+                            <th>
+                                收入名称：
+                            </th>
+                            <td>
+                                <input id="name" type="text" name="title" required=required lay-verify="required" placeholder="请输入收入名称" autocomplete="off" class="layui-input" />
+                            </td>
+
+                            <th>
+                                收入账户：
+                            </th>
+                            <td>
+
+                                <select id="txtbank" lay-verify="required"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                金额：
+                            </th>
+                            <td>
+                                <input id="money" type="text" name="title" required=required lay-verify="required" placeholder="请输入金额" autocomplete="off" class="layui-input" />
+                            </td>
+                            <th>
+                                制单人：
+                            </th>
+                            <td>
+
+                                <select id="usertype" lay-verify="required" disabled>
+                                    <option value="1">管理员</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                经手人：
+                            </th>
+                            <td>
+                                <select id="emp"></select>
+                            </td>
+                            <th>
+                                审核状态：
+                            </th>
+                            <td>
+                                <input id="type" type="text" name="title" required=required lay-verify="required" autocomplete="off" class="layui-input" disabled value="未审" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                备注：
+                            </th>
+                            <td colspan="3">
+                                <textarea id="remark" name="desc" style="resize:none;  " placeholder="请输入内容" class="layui-textarea"></textarea>
+                            </td>
+                        </tr>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" align="center">
+                                    <button class="layui-btn" id="btnAdd" lay-filter="formDemo">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    </form>
+</div>
+        </div>
+        <!-- end goods form -->
+    </div>
+</body>
+

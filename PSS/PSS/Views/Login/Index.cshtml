@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_PSS_Jquery_LayoutPage.cshtml";
+}
+
+<!--引用开始-->
+<link href="~/Login/css/default.css" rel="stylesheet" />
+<!--必要样式-->
+<link href="~/Login/css/styles.css" rel="stylesheet" />
+<link href="~/Login/css/demo.css" rel="stylesheet" />
+<link href="~/Login/css/loaders.css" rel="stylesheet" />
+<!--引用结束-->
+<script type="text/javascript">
+        //确保登录页面不作为框架页面显示，而是显示为独立的页面
+        if (window.top != window.self) {
+            window.top.location = "login.aspx";
+        }
+</script>
+<div class='login'>
+    <div class='login_title'>
+        <span>PPS系统登录</span>
+    </div>
+    <div class='login_fields'>
+        <div class='login_fields__user'>
+            <div class='icon'>
+                <img alt="" src='~/Login/img/user_icon_copy.png' />
+            </div>
+            <input name="login" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value="" />
+            <div class='validation'>
+                <img alt="" src='~/Login/img/tick.png' />
+            </div>
+        </div>
+        <div class='login_fields__password'>
+            <div class='icon'>
+                <img alt="" src='~/Login/img/lock_icon_copy.png' />
+            </div>
+            <input name="pwd" placeholder='密码' maxlength="16" type='text' autocomplete="off" />
+            <div class='validation'>
+                <img alt="" src='~/Login/img/tick.png' />
+            </div>
+        </div>
+        <div class='login_fields__password'>
+            <div class='icon'>
+                <img alt="" src='~/Login/img/key.png' />
+            </div>
+            <input name="code" placeholder='验证码' maxlength="4" type='text' name="ValidateNum" autocomplete="off" />
+            <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
+                <canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
+            </div>
+        </div>
+        <div class='login_fields__submit'>
+            <input type='button' value='登录' />
+        </div>
+    </div>
+    <div class='success'>
+    </div>
+    <!--<div class='disclaimer'>
+      <p>欢迎登录后台管理系统  更多源码：<a href="\http:\//www.mycodes.net/" target="_blank">源码之家</a></p>
+    </div>-->
+</div>
+<div class='authent'>
+    <div class="loader" style="height: 44px;width: 44px;margin-left: 28px;">
+        <div class="loader-inner ball-clip-rotate-multiple">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <p>认证中...</p>
+</div>
+<div class="OverWindows"></div>
+
+<!--<link href="Login/layui/css/layui.css" rel="stylesheet" type="text/css" />-->
+<link href="~/Login/layui/css/layui.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Login/js/jquery.min.js"></script>
+<script type="text/javascript" src="~/Login/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src='~/Login/js/stopExecutionOnTimeout.js?t=1'></script>
+<script type="text/javascript" src="~/Login/layui/layui.js"></script>
+<script type="text/javascript" src="~/Login/js/Particleground.js"></script>
+<script type="text/javascript" src="~/Login/Js/Treatment.js"></script>
+<script type="text/javascript" src="~/Login/js/jquery.mockjax.js"></script>
+<script type="text/javascript">
+		var canGetCookie = 0;//是否支持存储Cookie 0 不支持 1 支持
+		var ajaxmockjax = 1;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
+		var CodeVal = 0;
+	    Code();
+	    function Code() {
+			if(canGetCookie == 1){
+				createCode("AdminCode");
+				var AdminCode = getCookieValue("AdminCode");
+				showCheck(AdminCode);
+			}else{
+				showCheck(createCode(""));
+			}
+	    }
+	    function showCheck(a) {
+			CodeVal = a;
+	        var c = document.getElementById("myCanvas");
+	        var ctx = c.getContext("2d");
+	        ctx.clearRect(0, 0, 1000, 1000);
+	        ctx.font = "80px 'Hiragino Sans GB'";
+	        ctx.fillStyle = "#E8DFE8";
+	        ctx.fillText(a, 0, 100);
+	    }
+	    $(document).keypress(function (e) {
+	        // 回车键事件
+	        if (e.which == 13) {
+	            $('input[type="button"]').click();
+	        }
+	    });
+	    //粒子背景特效
+	    $('body').particleground({
+	        dotColor: '#E8DFE8',
+	        lineColor: '#133b88'
+	    });
+	    $('input[name="pwd"]').focus(function () {
+	        $(this).attr('type', 'password');
+	    });
+	    $('input[type="text"]').focus(function () {
+	        $(this).prev().animate({ 'opacity': '1' }, 200);
+	    });
+	    $('input[type="text"],input[type="password"]').blur(function () {
+	        $(this).prev().animate({ 'opacity': '.5' }, 200);
+	    });
+	    $('input[name="login"],input[name="pwd"]').keyup(function () {
+	        var Len = $(this).val().length;
+	        if (!$(this).val() == '' && Len >= 5) {
+	            $(this).next().animate({
+	                'opacity': '1',
+	                'right': '30'
+	            }, 200);
+	        } else {
+	            $(this).next().animate({
+	                'opacity': '0',
+	                'right': '20'
+	            }, 200);
+	        }
+	    });
+	    var open = 0;
+	    layui.use('layer', function () {
+	        //非空验证
+	        $('input[type="button"]').click(function () {
+	            var login = $('input[name="login"]').val();
+	            var pwd = $('input[name="pwd"]').val();
+	            var code = $('input[name="code"]').val();
+	            if (login == '') {
+	                ErroAlert('请输入您的账号');
+	            } else if (pwd == '') {
+	                ErroAlert('请输入密码');
+	            } else if (code == '') {
+
+	                ErroAlert('输入验证码');
+
+	            } else if (code.toUpperCase() != CodeVal.toUpperCase()) {
+
+	                ErroAlert('验证码输入不正确');
+	            } else {
+	                //登录
+	                var JsonData = { login: login, pwd: pwd, code: code };
+					//此处做为ajax内部判断
+	                var url = "Ajax/LoginFalse";
+
+	                //防SQL注入
+	                var pattern = new RegExp("[~'!#$%^&*()-+_=:]");
+	                if (pattern.test(login)) {
+	                    alert("用户名中存在非法字符")
+	                } else if (pattern.test(pwd)) {
+	                    alert("密码中存在非法字符")
+	                } else {
+	                    var model = { UserLoginName: JsonData.login, UserLoginPwd: JsonData.pwd };
+	                    var Model = { Users: model };
+	                    $.ajax({
+	                        type: "post",
+	                        url: "../../Login/GetLoginData",
+	                        data: JSON.stringify(Model),
+	                        dataType: "json",
+	                        contentType: "application/json",
+	                        success: function (data) {
+	                            data = eval(data);
+	                            var id = "";
+	                            $.each(data, function (index, data) {
+	                                id = data.UsersID;
+	                            })
+	                            if (data.length > 0) {
+	                                window.location.href = "../../Index/Index?UsersID=" + id;
+	                            } else {
+	                                ErroAlert("用户名或密码错误");
+	                            }
+
+	                        },
+	                        error: function (cms) {
+	                        }
+	                    });
+	                }
+	            }
+	        })
+	    })
+</script>
